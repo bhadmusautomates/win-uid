@@ -1,0 +1,853 @@
+{
+  "collection": {
+    "info": {
+      "_postman_id": "cbca173b-1a8e-4335-bfc0-796ea374a5d9",
+      "name": "API-Training-First-API-Test",
+      "schema": "https://schema.postman.com/json/collection/v2.1.0/collection.json",
+      "updatedAt": "2025-03-14T15:54:28.000Z",
+      "createdAt": "2025-03-14T15:45:12.000Z",
+      "lastUpdatedBy": "4496516",
+      "uid": "4496516-cbca173b-1a8e-4335-bfc0-796ea374a5d9"
+    },
+    "item": [
+      {
+        "name": "Get Status",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"Response status code is 200\", function () {",
+                "    pm.response.to.have.status(200);",
+                "});",
+                "",
+                "pm.test(\"Response has a JSON content type\", function () {",
+                "    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');",
+                "});",
+                "",
+                "pm.test(\"Response is an object with message property\", function () {",
+                "    pm.expect(pm.response.json()).to.be.an('object').that.has.property('message');",
+                "});"
+              ],
+              "type": "text/javascript",
+              "id": "11f55a16-3ebf-462e-9650-8dd706a81ff0"
+            }
+          }
+        ],
+        "id": "6d69d64f-2791-4a91-bd46-1064d28528d6",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              ""
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-6d69d64f-2791-4a91-bd46-1064d28528d6"
+      },
+      {
+        "name": "Register an API Client",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test(\"Response status code is 201\", function () {",
+                "    pm.response.to.have.status(201);",
+                "});",
+                "",
+                "pm.test(\"Response is an object with accessToken property\", function () {",
+                "    pm.expect(pm.response.json()).to.be.an('object').that.has.property('accessToken');",
+                "});",
+                "",
+                "pm.test(\"Response has the required Content-Type header set to 'application/json'\", function () {",
+                "    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+                "});",
+                "",
+                "",
+                "pm.test(\"Access token is a non-empty string\", function () {",
+                "  const responseData = pm.response.json();",
+                "  pm.expect(responseData.accessToken).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Access token should not be empty\");",
+                "});",
+                "",
+                "",
+                "pm.test(\"Access token property should be a string\", function () {",
+                "  const responseData = pm.response.json();",
+                "  ",
+                "  pm.expect(responseData.accessToken).to.be.a('string');",
+                "});",
+                "",
+                "var resp = pm.response.json()",
+                "var token = resp.accessToken",
+                "",
+                "pm.collectionVariables.set('access_token', token)"
+              ],
+              "type": "text/javascript",
+              "id": "04887737-2893-47a9-8c59-0a7c8c72f75d"
+            }
+          },
+          {
+            "listen": "prerequest",
+            "script": {
+              "exec": [
+                "var email_server = \"@yopmail.com\"",
+                "var email_prefix = \"testflight\"",
+                "var date_time = new Date().getTime()",
+                "var final_email = email_prefix+date_time+email_server",
+                "",
+                "pm.collectionVariables.set(\"email\", final_email)"
+              ],
+              "type": "text/javascript",
+              "id": "d1cf02be-a08b-48e8-a6c2-0ac807988187"
+            }
+          }
+        ],
+        "id": "0f08c678-d619-4d4b-abf6-d048faa7ad98",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n   \"clientName\": \"Princess\",\n   \"clientEmail\": \"{{email}}\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/api-clients/",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "api-clients",
+              ""
+            ]
+          }
+        },
+        "response": [
+          {
+            "id": "e489a005-c8b4-404c-aa27-c42f72895645",
+            "name": "201 Created",
+            "originalRequest": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n   \"clientName\": \"Princess\",\n   \"clientEmail\": \"{{email}}\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "https://simple-books-api.glitch.me/api-clients/",
+                "protocol": "https",
+                "host": [
+                  "simple-books-api",
+                  "glitch",
+                  "me"
+                ],
+                "path": [
+                  "api-clients",
+                  ""
+                ]
+              }
+            },
+            "status": "Created",
+            "code": 201,
+            "_postman_previewlanguage": "json",
+            "header": [
+              {
+                "key": "Date",
+                "value": "Sun, 03 Mar 2024 09:32:49 GMT"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              },
+              {
+                "key": "Content-Length",
+                "value": "82"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "x-powered-by",
+                "value": "Express"
+              },
+              {
+                "key": "etag",
+                "value": "W/\"52-CRA8b8Sq5xzLDIh97niNysRcVp4\""
+              }
+            ],
+            "cookie": [],
+            "responseTime": null,
+            "body": "{\n    \"accessToken\": \"7a1ffd3dddb93ee85201c62cc8a9a76751665bbc0e30f6d83d2521e315839051\"\n}",
+            "uid": "4496516-e489a005-c8b4-404c-aa27-c42f72895645"
+          },
+          {
+            "id": "1bd01f6c-b3bf-42c5-9aff-5030fba11302",
+            "name": "409 Conflict",
+            "originalRequest": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n   \"clientName\": \"Princess\",\n   \"clientEmail\": \"testflight@yopmail.com\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "https://simple-books-api.glitch.me/api-clients/",
+                "protocol": "https",
+                "host": [
+                  "simple-books-api",
+                  "glitch",
+                  "me"
+                ],
+                "path": [
+                  "api-clients",
+                  ""
+                ]
+              }
+            },
+            "status": "Conflict",
+            "code": 409,
+            "_postman_previewlanguage": "json",
+            "header": [
+              {
+                "key": "Date",
+                "value": "Sun, 03 Mar 2024 09:37:19 GMT"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              },
+              {
+                "key": "Content-Length",
+                "value": "65"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "x-powered-by",
+                "value": "Express"
+              },
+              {
+                "key": "etag",
+                "value": "W/\"41-rjAEsJfLskSzU5wzBOncJcKHOOY\""
+              }
+            ],
+            "cookie": [],
+            "responseTime": null,
+            "body": "{\n    \"error\": \"API client already registered. Try a different email.\"\n}",
+            "uid": "4496516-1bd01f6c-b3bf-42c5-9aff-5030fba11302"
+          },
+          {
+            "id": "e67daeff-54b9-46c6-8a62-78fb93c1cd30",
+            "name": "400 Bad Request",
+            "originalRequest": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n   \"clientName\": \"Princess\",\n   \"clientEmail\": \"testflight@yopmail.\"\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "https://simple-books-api.glitch.me/api-clients/",
+                "protocol": "https",
+                "host": [
+                  "simple-books-api",
+                  "glitch",
+                  "me"
+                ],
+                "path": [
+                  "api-clients",
+                  ""
+                ]
+              }
+            },
+            "status": "Bad Request",
+            "code": 400,
+            "_postman_previewlanguage": "json",
+            "header": [
+              {
+                "key": "Date",
+                "value": "Sun, 03 Mar 2024 09:37:37 GMT"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json; charset=utf-8"
+              },
+              {
+                "key": "Content-Length",
+                "value": "44"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "x-powered-by",
+                "value": "Express"
+              },
+              {
+                "key": "etag",
+                "value": "W/\"2c-PwGtxEQOZiq6R8vQs7E1MW/WeUI\""
+              }
+            ],
+            "cookie": [],
+            "responseTime": null,
+            "body": "{\n    \"error\": \"Invalid or missing client email.\"\n}",
+            "uid": "4496516-e67daeff-54b9-46c6-8a62-78fb93c1cd30"
+          },
+          {
+            "id": "c3bf7301-1998-432a-b253-cc25b3880618",
+            "name": "422 Unprocessable Entity",
+            "originalRequest": {
+              "method": "POST",
+              "header": [],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n   \"clientName\": \"Princess\",\n   \"clientEmail\": {{email}}\n}",
+                "options": {
+                  "raw": {
+                    "language": "json"
+                  }
+                }
+              },
+              "url": {
+                "raw": "https://simple-books-api.glitch.me/api-clients/",
+                "protocol": "https",
+                "host": [
+                  "simple-books-api",
+                  "glitch",
+                  "me"
+                ],
+                "path": [
+                  "api-clients",
+                  ""
+                ]
+              }
+            },
+            "status": "Unprocessable Entity",
+            "code": 422,
+            "_postman_previewlanguage": "plain",
+            "header": [
+              {
+                "key": "Date",
+                "value": "Sun, 03 Mar 2024 09:40:25 GMT"
+              },
+              {
+                "key": "Content-Type",
+                "value": "text/plain; charset=utf-8"
+              },
+              {
+                "key": "Content-Length",
+                "value": "20"
+              },
+              {
+                "key": "Connection",
+                "value": "keep-alive"
+              },
+              {
+                "key": "x-powered-by",
+                "value": "Express"
+              },
+              {
+                "key": "access-control-allow-origin",
+                "value": "*"
+              },
+              {
+                "key": "access-control-allow-methods",
+                "value": "GET, POST, OPTIONS, PUT, DELETE"
+              },
+              {
+                "key": "etag",
+                "value": "W/\"14-Buua4h4AYmB7XaCZYxzO2/gkScQ\""
+              }
+            ],
+            "cookie": [],
+            "responseTime": null,
+            "body": "Unprocessable Entity",
+            "uid": "4496516-c3bf7301-1998-432a-b253-cc25b3880618"
+          }
+        ],
+        "uid": "4496516-0f08c678-d619-4d4b-abf6-d048faa7ad98"
+      },
+      {
+        "name": "Get Books",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                ""
+              ],
+              "type": "text/javascript",
+              "id": "7a4c0015-faa8-49dd-bfb2-7e8aac259cfd"
+            }
+          }
+        ],
+        "id": "0e352e3e-93a9-4da9-814f-533fee258229",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/books",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "books"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-0e352e3e-93a9-4da9-814f-533fee258229"
+      },
+      {
+        "name": "Get a single book",
+        "id": "ac90ec01-cc55-41dd-a5e3-950402bb476a",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "method": "GET",
+          "header": [],
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/books/:bookId",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "books",
+              ":bookId"
+            ],
+            "query": [
+              {
+                "key": "",
+                "value": "",
+                "disabled": true
+              }
+            ],
+            "variable": [
+              {
+                "id": "1e49af4d-749f-43dd-a86e-af81a66fd53d",
+                "key": "bookId",
+                "value": "1"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-ac90ec01-cc55-41dd-a5e3-950402bb476a"
+      },
+      {
+        "name": "Place a book order",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                "var resp = pm.response.json()",
+                "var order_no = resp.orderId",
+                "",
+                "pm.collectionVariables.set(\"orderId\", order_no)",
+                "pm.test(\"Response status code is 201\", function () {",
+                "    pm.expect(pm.response.code).to.equal(201);",
+                "});",
+                "",
+                "",
+                "pm.test(\"Response has the required fields - created and orderId\", function () {",
+                "    const responseData = pm.response.json();",
+                "    ",
+                "    pm.expect(responseData).to.be.an('object');",
+                "    pm.expect(responseData).to.have.property('created');",
+                "    pm.expect(responseData).to.have.property('orderId');",
+                "});",
+                "",
+                "",
+                "pm.test(\"OrderId is a non-empty string\", function () {",
+                "  const responseData = pm.response.json();",
+                "  ",
+                "  pm.expect(responseData.orderId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"OrderId should be a non-empty string\");",
+                "});",
+                "",
+                "",
+                "pm.test(\"Order ID should be a non-empty string\", function () {",
+                "  const responseData = pm.response.json();",
+                "",
+                "  pm.expect(responseData).to.be.an('object');",
+                "  pm.expect(responseData.orderId).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Order ID should be a non-empty string\");",
+                "});",
+                "",
+                "",
+                "pm.test(\"Verify that the 'created' field is a boolean value\", function () {",
+                "  const responseData = pm.response.json();",
+                "  ",
+                "  pm.expect(responseData).to.be.an('object');",
+                "  pm.expect(responseData.created).to.be.a('boolean');",
+                "});",
+                "",
+                ""
+              ],
+              "type": "text/javascript",
+              "id": "929755f2-804a-4c9c-b8ca-e48c2b8a2d4b"
+            }
+          }
+        ],
+        "id": "2ead6abe-9e40-4714-bfbf-f0b6d3956989",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "POST",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"bookId\": 1,\n  \"customerName\": \"John\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/orders",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "orders"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-2ead6abe-9e40-4714-bfbf-f0b6d3956989"
+      },
+      {
+        "name": "Get all orders",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "exec": [
+                ""
+              ],
+              "type": "text/javascript",
+              "id": "8783340f-6c60-4955-a744-587758f5c9cd"
+            }
+          }
+        ],
+        "id": "e18d7aec-2a9f-48c2-bef1-5fe81345f033",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/orders",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "orders"
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-e18d7aec-2a9f-48c2-bef1-5fe81345f033"
+      },
+      {
+        "name": "Get an order",
+        "id": "1eddc16b-de02-4a70-a754-6d6dacb0f1e4",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "GET",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "{\n  \"customerName\": \"John\"\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/orders/:orderId",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "orders",
+              ":orderId"
+            ],
+            "variable": [
+              {
+                "id": "0760d797-ba1b-41b5-829f-5587e629b202",
+                "key": "orderId",
+                "value": "{{orderId}}"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-1eddc16b-de02-4a70-a754-6d6dacb0f1e4"
+      },
+      {
+        "name": "Update an order",
+        "id": "ece1f5e9-7cf0-4f16-9247-22d471d69a4b",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "PATCH",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/orders/:orderId/",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "orders",
+              ":orderId",
+              ""
+            ],
+            "variable": [
+              {
+                "key": "orderId",
+                "value": "{{orderId}}"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-ece1f5e9-7cf0-4f16-9247-22d471d69a4b"
+      },
+      {
+        "name": "Delete an order",
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "2b5ac1ab-3f35-4645-aa4a-03d900ef19ec",
+              "exec": [
+                "pm.test(\"Status code is 204\", function () {\r",
+                "    pm.response.to.have.status(204);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"Status code name has string OK\", function () {\r",
+                "    pm.response.to.have.status(\"No Content\");\r",
+                "});"
+              ],
+              "type": "text/javascript",
+              "packages": {}
+            }
+          }
+        ],
+        "id": "0ba646b8-9488-4e2f-bbb8-975619bb2118",
+        "protocolProfileBehavior": {
+          "disableBodyPruning": true
+        },
+        "request": {
+          "auth": {
+            "type": "bearer",
+            "bearer": [
+              {
+                "key": "token",
+                "value": "{{access_token}}",
+                "type": "string"
+              }
+            ]
+          },
+          "method": "DELETE",
+          "header": [],
+          "body": {
+            "mode": "raw",
+            "raw": "",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          },
+          "url": {
+            "raw": "https://simple-books-api.glitch.me/orders/:orderId/",
+            "protocol": "https",
+            "host": [
+              "simple-books-api",
+              "glitch",
+              "me"
+            ],
+            "path": [
+              "orders",
+              ":orderId",
+              ""
+            ],
+            "variable": [
+              {
+                "key": "orderId",
+                "value": "{{orderId}}"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "uid": "4496516-0ba646b8-9488-4e2f-bbb8-975619bb2118"
+      }
+    ],
+    "event": [
+      {
+        "listen": "prerequest",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "id": "85af482f-017c-46d5-8071-e46a419be6f8"
+        }
+      },
+      {
+        "listen": "test",
+        "script": {
+          "type": "text/javascript",
+          "exec": [
+            ""
+          ],
+          "id": "7b0b7f48-d341-43c7-be5e-1065b6e0891a"
+        }
+      }
+    ],
+    "variable": [
+      {
+        "key": "email",
+        "value": ""
+      },
+      {
+        "key": "orderId",
+        "value": ""
+      },
+      {
+        "key": "access_token",
+        "value": ""
+      }
+    ]
+  }
+}
